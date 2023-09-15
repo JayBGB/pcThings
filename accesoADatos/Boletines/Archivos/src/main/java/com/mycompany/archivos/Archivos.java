@@ -2,13 +2,43 @@ package com.mycompany.archivos;
 import java.io.File;
 
 public class Archivos {
-
-    public static void main(String[] args) {
+      
+    public static void main(String[] args) throws Exception {     
     
         Archivos obj = new Archivos();
         
-        obj.creaDirectorio("/home/dam2/NetBeansProjects/arquivos/arquivosdir");
+        obj.creaDirectorio("/home/postgres/NetBeansProjects/Archivos/arquivosdir");
+        obj.eDirectorio("/home/postgres/NetBeansProjects/Archivos/arquivosdir");
         
+        System.out.println("***********");
+              
+        obj.creaFichero("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        obj.eFichero("/home/postgres/NetBeansProjects/Archivos/arquivosdir/Products1.txt");
+        
+        System.out.println("***********");
+        
+        obj.creaDirectorio("/home/postgres/NetBeansProjects/Archivos/arquivosdir/subdir");
+        obj.creaFichero("/home/postgres/NetBeansProjects/Archivos/arquivosdir/subdir/", "Products2.txt");
+        
+        System.out.println("***********");
+        
+        obj.mContido("/home/postgres/NetBeansProjects/Archivos/arquivosdir/");
+        
+        System.out.println("***********");
+        
+        obj.modoAcceso("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        obj.calculaLonxitude("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        
+        System.out.println("***********");
+        
+        obj.mLectura("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        obj.mEscritura("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        obj.borraFicheiro("/home/postgres/NetBeansProjects/Archivos/arquivosdir/", "Products1.txt");
+        obj.borraFicheiro("/home/postgres/NetBeansProjects/Archivos/arquivosdir/subdir/", "Products2.txt");
+        obj.borraDirectorio("/home/postgres/NetBeansProjects/Archivos/arquivosdir/subdir");
+         
+        File directorio = new File("/home/postgres/NetBeansProjects/arquivos/arquivosdir/");
+        obj.recur(directorio);
     }
     
     
@@ -66,12 +96,12 @@ public class Archivos {
         boolean isAbso = dir.isAbsolute();
         boolean dirExists = dir.exists();
         
-        File arc = new File (fileName);
+        File arc = new File (dirName+fileName);
         boolean arcExists = arc.exists();
         
         if (isAbso && dirExists){
         
-            if (arcExists){
+            if (!arcExists){
             
                 arc.createNewFile();
             }else{
@@ -97,7 +127,7 @@ public class Archivos {
         File dir = new File (dirName);
         boolean isAbso = dir.isAbsolute();
         
-        File arc = new File (fileName);
+        File arc = new File (dirName+fileName);
         boolean readable = arc.canRead();
         boolean writeable= arc.canWrite();
         
@@ -127,7 +157,7 @@ public class Archivos {
         File dir = new File (dirName);
         boolean isAbso = dir.isAbsolute();
         
-        File arc = new File (fileName);
+        File arc = new File (dirName+fileName);
         
         if (isAbso){
         
@@ -143,7 +173,7 @@ public class Archivos {
         File dir = new File (dirName);
         boolean isAbso = dir.isAbsolute();
         
-        File arc = new File (fileName);
+        File arc = new File (dirName+fileName);
         
         if(isAbso){
         
@@ -153,14 +183,14 @@ public class Archivos {
     
     public void mEscritura (String dirName, String fileName){
 
-        File arc = new File (fileName);
+        File arc = new File (dirName+fileName);
         arc.setWritable(true);       
         
     }
     
     public void borraFicheiro (String dirName, String fileName){
     
-       File arc = new File (fileName);
+       File arc = new File (dirName+fileName);
        
        if(arc.exists()){
        
@@ -200,7 +230,7 @@ public class Archivos {
         }
     }
     
-     public static void recur(File ruta) {
+     public void recur(File ruta) {
         if (ruta.isDirectory()) {
             System.out.println("Directorio: " + ruta.getName());
             File[] archivos = ruta.listFiles();
