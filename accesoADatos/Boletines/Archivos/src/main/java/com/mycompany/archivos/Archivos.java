@@ -3,7 +3,13 @@ import java.io.File;
 
 public class Archivos {
 
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+    
+        Archivos obj = new Archivos();
+        
+        obj.creaDirectorio("/home/dam2/NetBeansProjects/arquivos/arquivosdir");
+        
+    }
     
     
     
@@ -115,5 +121,99 @@ public class Archivos {
         }
     
     }
+    
+    public void calculaLonxitude (String dirName, String fileName){
+    
+        File dir = new File (dirName);
+        boolean isAbso = dir.isAbsolute();
+        
+        File arc = new File (fileName);
+        
+        if (isAbso){
+        
+            System.out.println(arc.length());
+        }else{
+        
+            System.out.println("La ruta no es absoluta.");
+        }
+    }
+    
+    public void mLectura (String dirName, String fileName){
+    
+        File dir = new File (dirName);
+        boolean isAbso = dir.isAbsolute();
+        
+        File arc = new File (fileName);
+        
+        if(isAbso){
+        
+            arc.setReadOnly();
+        }
+    }
+    
+    public void mEscritura (String dirName, String fileName){
+
+        File arc = new File (fileName);
+        arc.setWritable(true);       
+        
+    }
+    
+    public void borraFicheiro (String dirName, String fileName){
+    
+       File arc = new File (fileName);
+       
+       if(arc.exists()){
+       
+           arc.delete();
+       }else{
+           System.out.println("Fichero inexistente.");
+       }
+    }
+    
+    public void borraDirectorio(String dirName){
+    
+        File dir = new File (dirName);
+        
+        if(!dir.exists()){
+        
+            System.out.println("Ruta inexistente o con descendencia.");
+        }else{
+        
+            dir.delete();
+        }
+    }
+    
+    public void mContido (String dirName){
+    
+        File dir = new File (dirName);
+        boolean isAbso = dir.isAbsolute();
+        
+        if(isAbso){
+        
+            String array[]=dir.list();
+            for (String a:array){
+                System.out.println(a);
+            }
+        }else{
+        
+            System.out.println("La ruta no es absoluta.");
+        }
+    }
+    
+     public static void recur(File ruta) {
+        if (ruta.isDirectory()) {
+            System.out.println("Directorio: " + ruta.getName());
+            File[] archivos = ruta.listFiles();
+            if (archivos != null) {
+                for (File subRuta : archivos) {
+                    recur(subRuta);
+                }
+            }
+        } else {
+            System.out.println("Directorio: " + ruta.getName());
+        }
+    
+    }
+     
     
 }
