@@ -11,27 +11,27 @@ public class CopyBytesTexto {
     
         CopyBytesTexto test = new CopyBytesTexto();
         
-        test.appCopyBytesTexto("/home/dam2/NetBeansProjects/CopyBytesTexto/src/texto/texto1.txt");
+        test.appCopyBytesTexto("/home/postgres/pcThings/accesoADatos/Boletines/CopyBytesTexto/textos/texto1.txt");
     }
     
     public void appCopyBytesTexto(String path) throws FileNotFoundException, IOException{
         
-        ArrayList textoBytes = new ArrayList();
-        float aux;
+        ArrayList <Integer> textoBytes = new ArrayList<Integer>();
         FileInputStream reader = new FileInputStream(path);
         
-        while ((aux=reader.read())!= -1){
+        while (reader.available() != 0){
         
             textoBytes.add(reader.read());
         }
         
-        String path2="/home/dam2/NetBeansProjects/CopyBytesTexto/src/texto/texto2.txt";
-        FileOutputStream writer = new FileOutputStream(path2);
+        String path2="/home/postgres/pcThings/accesoADatos/Boletines/CopyBytesTexto/textos/texto2.txt";
+        FileOutputStream writer = new FileOutputStream(path2, true);
         
-        for(int x=0; x > textoBytes.size(); x++){
+        for(int x=0; x < textoBytes.size(); x++){
             
-            writer.write((int) textoBytes.get(x));
+            writer.write(textoBytes.get(x));    
         }
+        writer.close();
         
     }
     
